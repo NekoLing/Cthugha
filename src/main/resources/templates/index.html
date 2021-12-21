@@ -65,20 +65,22 @@
     var form = layui.form, layer = layui.layer, $ = layui.$;
 
     //初始化剧本列表
-    $.ajax({
-      url:"/performer/dramas",
-      method:"get",
-      dataType: "json",
-      success: function (response) {
-        var state = response.state;
-        if (state == 0) {
-          var dramas = response.data;
-          for (var i = 0; i < dramas.length; i++) {
-            var drama = dramas[i];
-            $("#item").append("<div class='layui-col-md4 layui-col-space15' id='btn-f'><button data-id='" + drama.id  + "'class='layui-btn btn-drama' style='margin-top: 25px; height: 250px; width: 200px; border-radius: 8px; text-align:left; font-size: 20px; background-color: #30333d'>" + drama.name + "</button></div>");
+    $(function (){
+      $.ajax({
+        url:"/performer/dramas",
+        method:"get",
+        dataType: "json",
+        success: function (response) {
+          var state = response.state;
+          if (state == 0) {
+            var dramas = response.data;
+            for (var i = 0; i < dramas.length; i++) {
+              var drama = dramas[i];
+              $("#item").append("<div class='layui-col-md4 layui-col-space15' id='btn-f'><button data-id='" + drama.id  + "'class='layui-btn btn-drama' style='margin-top: 25px; height: 250px; width: 200px; border-radius: 8px; text-align:left; font-size: 20px; background-color: #30333d'>" + drama.name + "</button></div>");
+            }
           }
         }
-      }
+      });
     });
 
 
@@ -122,7 +124,7 @@
     });
 
     $("#item").on("click", ".btn-drama", function (){
-      console.log("+++++++++++++++++++++");
+      window.location.href = "/drama/index?id=" + $(this).data("id");
     });
 
   });

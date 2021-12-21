@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>教务系统学生端</title>
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+</head>
+<body>
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo layui-hide-xs layui-bg-black"></div>
+        <!-- 头部区域（可配合layui 已有的水平导航） -->
+        <!--        <ul class="layui-nav layui-layout-left">-->
+        <!--            <li class="layui-nav-item layui-hide-xs"><a href="">nav 1</a></li>-->
+        <!--            <li class="layui-nav-item layui-hide-xs"><a href="">nav 2</a></li>-->
+        <!--        </ul>-->
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item layui-hide layui-show-md-inline-block">
+                <a id="display-name" href="javascript:;">
+                </a>
+                <dl class="layui-nav-child">
+                    <dd class="student-menu-item" data-title="资料完善" data-url="/student/personal" data-id="11"><a href="">个人信息</a></dd>
+                    <dd id="student-logout"><a href="">退出登录</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;">默认频道</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <ul class="layui-timeline">
+            <li class="layui-timeline-item">
+                <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                <div class="layui-timeline-content layui-text">
+                    <h3 class="layui-timeline-title"></h3>
+                    <p></p>
+                </div>
+            </li>
+            <li class="layui-timeline-item">
+                <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                <div class="layui-timeline-content layui-text">
+                    <h3 class="layui-timeline-title"></h3>
+                    <p></p>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="layui-footer">
+        <div class="layui-fluid layui-form">
+            <div id="input-bar" class="layui-row">
+                <div class="layui-col-md1">
+                    <input type="checkbox" lay-skin="switch" lay-text="骰子|对话">
+                </div>
+                <div class="layui-col-md9">
+                    <input id="log-input" type="text" style="font-size: 20px;margin-top: 5px;margin-bottom: 10px;height: 40px" class="layui-input">
+                </div>
+                <div class="layui-col-md2">
+                    <button class="layui-btn" id="send" style="margin-left: 20px">
+                        发送
+                    </button>
+                </div>
+            </div>
+    </div>
+</div>
+</body>
+<script src="../js/cookie.js"></script>
+<script src="../layui/layui.js" charset="utf-8"></script>
+<script>
+    layui.use(['element', 'layer', 'util','form'], function(){
+        var element = layui.element
+            ,layer = layui.layer
+            ,util = layui.util
+            ,$ = layui.$;
+
+        var drama;
+        var logs;
+
+        $(function () {
+            var dramaId = getQueryVariable("id");
+            $.ajax({
+                url:"/drama/get?id=" + dramaId,
+                method:"get",
+                dataType: "json",
+                async: false,
+                success: function (response) {
+                    var state = response.state;
+                    if (state == 0) {
+                        drama = response.data;
+                        $(".layui-logo").append(drama.name);
+                        $('title').text(drama.name);
+                    }
+                }
+            });
+            $.ajax({
+                url:"/log/list?id=" + dramaId,
+                method:"get",
+                dataType: "json",
+                async: true,
+                success: function (response) {
+                    var state = response.state;
+                    if (state == 0) {
+                        logs = response.data;
+                        displayLogs(logs);
+                    }
+                }
+            });
+        });
+
+        function displayLogs(list) {
+            for (var i = 0; i < list.length; i++) {
+                $(".layui-timeline").append("<li class='layui-timeline-item'><i class='layui-icon layui-timeline-axis'>&#xe63f;</i><div class='layui-timeline-content layui-text'><h3 class='layui-timeline-title'>" + list[i].id + "</h3><p>" + list[i].content + "</p></div></li>");
+            }
+        }
+
+        function displayOne(log) {
+            $(".layui-timeline").append("<li class='layui-timeline-item'><i class='layui-icon layui-timeline-axis'>&#xe63f;</i><div class='layui-timeline-content layui-text'><h3 class='layui-timeline-title'>" + log.id + "</h3><p>" + log.content + "</p></div></li>");
+        }
+
+        $("#send").on("click", function () {
+            var log = {
+                content: $("#log-input").val(),
+                type: 0,
+                dramaId: drama.id,
+                ownerId: JSON.parse(localStorage.getItem("userInfo")).userId
+            }
+            $.ajax({
+                url:"/log/create",
+                method:"post",
+                contentType: "application/json; charset=utf-8",
+                data:JSON.stringify(log),
+                dataType: "json",
+                success: function (response) {
+                    displayOne(log);
+                }
+            });
+        });
+
+        //设置用户名
+        $("#display-name").text(JSON.parse(localStorage.getItem("userInfo")).name);
+
+        //登出
+        $("#student-logout").on("click", function() {
+            clearCookie();
+            window.location.href = "/login";
+            return false
+        });
+    });
+    function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] == variable){return pair[1];}
+        }
+        return(false);
+    }
+</script>>
+<style>
+    .layui-body {
+        background-color: #e2e2e2;
+    }
+    body {
+        background-color: #e2e2e2;
+    }
+    .layui-tab-content {
+        background-color: #ffffff;
+    }
+    .layui-tab {
+        margin: 10px 20px;
+    }
+</style>
+</html>

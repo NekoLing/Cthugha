@@ -28,11 +28,22 @@ public class DramaController {
         this.userService = userService;
     }
 
+    @GetMapping("/index")
+    public String drama() {
+        return "drama";
+    }
+
     @ResponseBody
     @PostMapping("/create")
     public JsonResponse create(HttpServletRequest request, @RequestBody Drama drama) {
         Integer createUserId = Integer.parseInt(CookieUtils.get(request, "userId"));
         dramaService.add(drama, userService.getById(createUserId));
         return new JsonResponse(0,"创建成功");
+    }
+
+    @ResponseBody
+    @GetMapping("/get")
+    public JsonResponse create(@RequestParam Integer id) {
+        return new JsonResponse(dramaService.getById(id));
     }
 }

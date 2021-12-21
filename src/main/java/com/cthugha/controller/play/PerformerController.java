@@ -49,7 +49,6 @@ public class PerformerController {
         }
 
     }
-
     @GetMapping("/dramas")
     public JsonResponse dramas(HttpServletRequest request) {
         Integer userId = Integer.parseInt(CookieUtils.get(request, "userId"));

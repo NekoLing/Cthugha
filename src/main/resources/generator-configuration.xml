@@ -31,19 +31,19 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="com.cthugha.model.system" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.cthugha.model.play" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="mappings.system" targetProject="src/main/resources">
+        <sqlMapGenerator targetPackage="mappings.play" targetProject="src/main/resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.cthugha.dao.system" targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.cthugha.dao.play" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="performer"
+        <table tableName="log"
                enableCountByExample="false"
                enableDeleteByExample="false"
                enableSelectByExample="false"

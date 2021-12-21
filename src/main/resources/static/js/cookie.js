@@ -26,7 +26,7 @@ function saveCookie(cookieName, cookieValue) {
     /*如果未设置nDays参数或者nDays为0，取默认值1*/
     //if(nDays == null || nDays == 0) nDays = 1;
     /*计算Cookie过期时间【 3600000 * 24  为一天】*/
-    expire.setTime(today.getTime() + 400000); //5分钟
+    expire.setTime(today.getTime() + 3600000 * 24);
     document.cookie = cookieName + "=" + escape(cookieValue) + ";expires=" +      expire.toGMTString();
 }
 
