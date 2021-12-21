@@ -71,7 +71,7 @@ public class JwtUitls {
         }
         //从token中获取用户id，查询该Id的用户是否存在，存在则token验证通过
         String id = claims.getId();
-        Account account = accountService.selectById(Integer.parseInt(id));
+        Account account = accountService.getById(Integer.parseInt(id));
         if(account != null){
             return 1;
         }else{

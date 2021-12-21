@@ -12,7 +12,7 @@ class CthughaApplicationTests {
 
     @Test
     void contextLoads() {
-        System.out.println(service.selectById(1));
+        System.out.println(service.getById(1));
     }
 
 }

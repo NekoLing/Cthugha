@@ -2,7 +2,6 @@ package com.cthugha.service.system;
 
 import com.cthugha.dao.system.AccountMapper;
 import com.cthugha.model.system.Account;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,17 +20,17 @@ public class AccountService implements IAccountService{
     }
 
     @Override
-    public Account selectById(Integer id) {
+    public Account getById(Integer id) {
         return accountMapper.selectByPrimaryKey(id);
     }
 
     @Override
-    public Account selectByNumber(String number) {
+    public Account getByNumber(String number) {
         return accountMapper.selectByNumber(number);
     }
 
     @Override
-    public int insert(Account account) {
+    public int add(Account account) {
        return accountMapper.insert(account);
     }
 }

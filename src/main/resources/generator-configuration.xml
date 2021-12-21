@@ -8,7 +8,7 @@
             location="C:\Users\1\.m2\repository\mysql\mysql-connector-java\8.0.27\mysql-connector-java-8.0.27.jar"/>
 
 
-    <context id="default" targetRuntime="MyBatis3Simple">
+    <context id="default" targetRuntime="MyBatis3">
 
         <property name="javaFileEncoding" value="UTF-8"/>
 
@@ -19,9 +19,10 @@
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/local"
+                        connectionURL="jdbc:mysql://localhost:3306/cthugha"
                         userId="root"
                         password="123456">
+            <property name="nullCatalogMeansCurrent" value="true"/>
         </jdbcConnection>
 
 
@@ -34,7 +35,7 @@
             <property name="enableSubPackages" value="true"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="com.cthugha.mappings.system" targetProject="src/main/resources">
+        <sqlMapGenerator targetPackage="mappings.system" targetProject="src/main/resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
@@ -42,14 +43,12 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="account"
+        <table tableName="user"
                enableCountByExample="false"
                enableDeleteByExample="false"
                enableSelectByExample="false"
-               enableUpdateByExample="false"
-               domainObjectName="Order"
-               mapperName="OrderMapper">
-            <generatedKey column="id" sqlStatement="MySql"/>
+               enableUpdateByExample="false">
+<!--            <generatedKey column="id" sqlStatement="MySql"/>-->
         </table>
     </context>
 </generatorConfiguration>

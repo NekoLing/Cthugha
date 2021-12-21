@@ -9,9 +9,13 @@ import com.cthugha.model.system.Account;
  * @Created by gaoqi
  */
 public interface IAccountService {
-    Account selectById(Integer id);
 
-    Account selectByNumber(String account);
+    /** 通过id获取账户 */
+    Account getById(Integer id);
 
-    int insert(Account account);
+    /** 通过账号获取账户 */
+    Account getByNumber(String number);
+
+    /** 创建账户 */
+    int add(Account account);
 }
