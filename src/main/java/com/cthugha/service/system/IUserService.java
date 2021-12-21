@@ -13,6 +13,8 @@ public interface IUserService {
 
     User getByNumber(String number);
 
+    User getById(Integer id);
+
     int addUser(UserInfo userInfo);
 
 }

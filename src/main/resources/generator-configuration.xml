@@ -43,12 +43,12 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="user"
+        <table tableName="performer"
                enableCountByExample="false"
                enableDeleteByExample="false"
                enableSelectByExample="false"
                enableUpdateByExample="false">
-<!--            <generatedKey column="id" sqlStatement="MySql"/>-->
+            <generatedKey column="id" sqlStatement="MySql"/>
         </table>
     </context>
 </generatorConfiguration>

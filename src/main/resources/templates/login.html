@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>教务系统登录</title>
+  <title>Cthugha</title>
   <link rel="stylesheet" href="../layui/css/layui.css" media="all">
   <script src="../layui/layui.js" charset="utf-8"></script>
   <script src="../js/cookie.js"></script>
@@ -53,6 +53,7 @@
             saveCookie("accountId", response.data.accountId);
             saveCookie("userId", response.data.userId);
             localStorage.setItem("userInfo", JSON.stringify(response.data));
+            window.location.href = "/";
           }
         }
       });

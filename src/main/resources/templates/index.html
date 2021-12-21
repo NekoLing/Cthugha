@@ -2,90 +2,143 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>教务系统登录</title>
+  <title>Cthugha</title>
   <link rel="stylesheet" href="../layui/css/layui.css" media="all">
   <script src="../layui/layui.js" charset="utf-8"></script>
   <script src="../js/cookie.js"></script>
 </head>
 <body>
-<div class="layui-card">
-  <div class="layui-card-header">教务系统</div>
-  <div class="layui-card-body">
-    <form class="layui-form" action="">
-      <div class="layui-form-item">
-        <label class="layui-form-label">账号</label>
-        <div class="layui-input-inline">
-          <input type="text" name="accountNumber" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+  <div class="layui-container">
+    <div id="header" class="layui-row">
+      <div class="layui-col-md2 layui-col-md-offset10">
+        <button class="layui-btn" id="me">
+          个人信息
+          <i class="layui-icon layui-icon-down layui-font-12"></i>
+        </button>
+      </div>
+    </div>
+    <div id="content" class="layui-row">
+      <div class="layui-col-md8 layui-col-md-offset2">
+        <div class="layui-fluid">
+          <div class="layui-row" style="margin-top: 20px">
+            <i class="layui-icon layui-icon-rate-solid" style="font-size: 30px; color: snow"></i>
+            <label style="font-size: 30px; color: snow">你参与的剧本</label>
+          </div>
+          <div id="item" class="layui-row" style="margin-top: 20px">
+            <div class="layui-col-md4 layui-col-space15">
+              <button class="layui-btn" style="margin-top: 25px; height: 250px; width: 200px; border-radius: 8px; background-color: #30333d" id="create-drama">
+                <i class="layui-icon layui-icon-add-1" style="font-size: 100px; color: snow"></i>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="layui-form-item">
-        <label class="layui-form-label">密码</label>
-        <div class="layui-input-inline">
-          <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
-        </div>
-      </div>
-      <div class="layui-form-item">
-        <div class="layui-input-block">
-          <button class="layui-btn layui-btn-radius" lay-submit lay-filter="login">登录</button>
-          <button class="layui-btn layui-btn-radius">重置密码</button>
-        </div>
-      </div>
-    </form>
+    </div>
   </div>
-</div>
+
+  <form class="layui-form" id="create-form" style="display:none; padding: 0px 10px">
+    <div class="layui-form-item">
+      <label class="layui-form-label">剧本名</label>
+      <div class="layui-input-block">
+        <input type="text" name="name" required  lay-verify="required" placeholder="给你的剧本起个名字" autocomplete="off" class="layui-input" id="name" style="width:100px">
+      </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+      <label class="layui-form-label" >简介</label>
+      <div class="layui-input-block">
+        <textarea name="intro" placeholder="简单介绍一下这个剧本吧" class="layui-textarea" id="intro"></textarea>
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">邀请码</label>
+      <div class="layui-input-block">
+        <input type="text" name="code" required  lay-verify="required" placeholder="邀请朋友加入时会用到的" autocomplete="off" class="layui-input" id="code" style="width:100px">
+      </div>
+    </div>
+
+  </form>
+
+
 </body>
 <script>
   layui.use(['jquery', 'form', 'layer'], function(){
     var form = layui.form, layer = layui.layer, $ = layui.$;
 
-    form.on('submit(login)', function(data){
-      $.ajax({
-        type: "post",
-        url: "/account/login",
-        contentType: "application/json; charset=utf-8",
-        data:JSON.stringify(data.field),
-        dataType: "json",
-        success: function (response) {
-          if (response.state == 1)
-            layer.msg(response.message, {icon:5, time: 2000})
-          else {
-
-            saveCookie("token", response.data.token)
-            saveCookie("id", response.data.id)
-            saveCookie("accountNumber", response.data.accountNumber)
-
-            if (response.data.accountType == 0)
-              window.location.href = "/manager"
-            else if (response.data.accountType == 1)
-              window.location.href = "/teacher"
-            else
-              window.location.href = "/student"
+    //初始化剧本列表
+    $.ajax({
+      url:"/performer/dramas",
+      method:"get",
+      dataType: "json",
+      success: function (response) {
+        var state = response.state;
+        if (state == 0) {
+          var dramas = response.data;
+          for (var i = 0; i < dramas.length; i++) {
+            var drama = dramas[i];
+            $("#item").append("<div class='layui-col-md4 layui-col-space15' id='btn-f'><button data-id='" + drama.id  + "'class='layui-btn btn-drama' style='margin-top: 25px; height: 250px; width: 200px; border-radius: 8px; text-align:left; font-size: 20px; background-color: #30333d'>" + drama.name + "</button></div>");
           }
         }
-      });
-      return false;
+      }
     });
 
+
+    $("#create-drama").on("click", function (){
+      layer.open({
+        type:1,
+        area:['500px','300px'],
+        title: '创建新剧本',
+        content: $("#create-form"),
+        btn: ['创建', '取消'],
+        btn1: function(index, layero){
+          var darma = {
+            name: $("#name").val(),
+            intro: $("#intro").val(),
+            code: $("#code").val()
+          }
+          $.ajax({
+            url:"/drama/create",
+            method:"post",
+            contentType: "application/json; charset=utf-8",
+            data:JSON.stringify(darma),
+            dataType: "json",
+            success: function (response) {
+              var state = response.state;
+              if (state == 0) {
+                layer.msg("创建成功",{time:1000})
+              }
+              else
+                layer.msg("创建失败",{time:1000})
+            }
+          });
+        },
+        btn2: function(index, layero){
+        },
+        cancel: function(layero,index){
+          layer.closeAll();
+        }
+
+      });
+
+    });
+
+    $("#item").on("click", ".btn-drama", function (){
+      console.log("+++++++++++++++++++++");
+    });
 
   });
 </script>
 <style>
-  .layui-card {
-    width: 400px;
-    height: 250px;
-
-    position: absolute;
-    left: 50%;
-    top: 50%;
-
-    margin-top: -125px;
-    margin-left: -200px;
-  }
-  .layui-form {
-    margin-top: 20px;
-  }
   body {
-    background-color: #e2e2e2;
+    background-color: #282b34;
+  }
+  #header {
+    background-color: #393D49;
+  }
+  #content {
+    background-color: #282b34;
+  }
+  .layui-col-md2 {
+    padding: 5px 2px;
   }
 </style>
 </html>

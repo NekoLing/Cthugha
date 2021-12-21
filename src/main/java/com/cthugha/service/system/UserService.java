@@ -32,6 +32,11 @@ public class UserService implements IUserService{
     }
 
     @Override
+    public User getById(Integer id) {
+        return userMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
     public int addUser(UserInfo userInfo) {
         User user = new User();
         user.setName(userInfo.getName());

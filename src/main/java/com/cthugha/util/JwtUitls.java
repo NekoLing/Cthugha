@@ -23,9 +23,9 @@ public class JwtUitls {
     private IAccountService accountService;
 
     /**
-     * 过期时间20分钟
+     * 过期时间100分钟
      */
-    private static final long EXPIRE_TIME=20*60*1000;
+    private static final long EXPIRE_TIME=100*60*1000;
     /**
      * 加密密钥
      */

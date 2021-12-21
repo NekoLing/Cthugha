@@ -29,7 +29,7 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.cthugha.model.system.Account">
-    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into account (id, number, email,
@@ -38,7 +38,7 @@
       #{password,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.cthugha.model.system.Account">
-    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into account
