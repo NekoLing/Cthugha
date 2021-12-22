@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <title>教务系统学生端</title>
+  <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+</head>
+<body>
+
+<!--<div class="chat-msg layui-fluid">-->
+<!--  <div class="layui-row">-->
+<!--    <div class="chat-msg-updown layui-col-md1" style="background-color: red;top: 50%;position: absolute;transform: translateY(-50%);">-->
+<!--      <div class="layui-fluid">-->
+<!--        <div class="layui-row">-->
+<!--          <button type="button" class="layui-btn layui-btn-xs layui-btn-normal">-->
+<!--            <i class="layui-icon layui-icon-up"></i>-->
+<!--          </button>-->
+<!--        </div>-->
+<!--        <div class="layui-row">-->
+<!--          <button type="button" class="layui-btn layui-btn-xs layui-btn-normal">-->
+<!--            <i class="layui-icon layui-icon-down"></i>-->
+<!--          </button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="chat-msg-content layui-col-md11" style="background-color:blue;">-->
+<!--      <div class="layui-fluid">-->
+<!--        <div class="layui-row">-->
+<!--          <P class="chat-msg-name" style="font-size: 30px; font-weight: bolder">姓名</P>-->
+<!--        </div>-->
+<!--        <div class="layui-row">-->
+<!--          <P class="chat-msg-text" style="font-size: 20px; font-weight: bolder">内容<br>内容<br>内容<br>内容<br>内容</P>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div class="chat-msg">
+  <ul style="display: table;width: 100%">
+    <li style="display: table-cell;vertical-align: middle;">
+      <ul class="chat-msg-control-left">
+        <li>
+          <button type="button" class="layui-btn layui-btn-xs layui-btn-normal">
+            <i class="layui-icon layui-icon-up"></i>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="layui-btn layui-btn-xs layui-btn-normal">
+            <i class="layui-icon layui-icon-down"></i>
+          </button>
+        </li>
+      </ul>
+    </li>
+    <li style="display: table-cell;padding-left:10px;width: 100%;">
+      <ul class="chat-msg-content">
+        <li>
+        </li>
+          <P class="chat-msg-name" style="font-size: 30px; font-weight: bolder">姓名</P>
+        <li>
+          <P class="chat-msg-text" style="font-size: 20px; font-weight: bolder">内容123456789</P>
+        </li>
+      </ul>
+    </li>
+    <li style="display: table-cell;vertical-align: bottom;padding-left: 10px;">
+      <p class="chat-msg-text-time" style="font-size: 15px">20:31</p>
+    </li>
+  </ul>
+</div>
+
+
+
+
+<script src="../js/cookie.js"></script>
+<script src="../layui/layui.js" charset="utf-8"></script>
+<script>
+  layui.use(['element', 'layer', 'util','form'], function(){
+    var element = layui.element
+            ,layer = layui.layer
+            ,util = layui.util
+            ,$ = layui.$;
+
+  });
+  function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i=0;i<vars.length;i++) {
+      var pair = vars[i].split("=");
+      if(pair[0] == variable){return pair[1];}
+    }
+    return(false);
+  }
+</script>
+</body>
+<style>
+
+</style>
+</html>

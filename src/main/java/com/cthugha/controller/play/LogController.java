@@ -24,7 +24,7 @@ public class LogController {
     @PostMapping("/create")
     public JsonResponse create(@RequestBody Log log) {
         logService.add(log);
-        return new JsonResponse();
+        return new JsonResponse(log.getId());
     }
 
     @GetMapping("/list")

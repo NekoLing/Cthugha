@@ -23,4 +23,8 @@ public class IndexController {
     public String login() {
         return "login";
     }
+    @GetMapping("/test")
+    public String test() {
+        return "chat-input";
+    }
 }

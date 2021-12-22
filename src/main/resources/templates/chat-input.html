@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>教务系统学生端</title>
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+</head>
+<body>
+
+<div class="chat-input" style="background-color: #393D49;padding-bottom: 2px;padding-top: 4px">
+    <ul class="chart-input-bar layui-form" style="display: table;margin: 0 auto">
+        <li style="display: table-cell;vertical-align: bottom;padding-bottom: 4px;padding-right: 20px">
+            <ul class="chart-input-left" style="display:table;">
+                <li style="display: table-cell;padding: 2px">
+                    <input type="checkbox" lay-skin="switch" lay-text="角色|玩家">
+                </li>
+                <li style="display: table-cell;padding: 2px">
+                    <input type="checkbox" lay-skin="switch" lay-text="骰子|骰子">
+                </li>
+            </ul>
+        </li>
+        <li class="chart-input-area" style="display: table-cell;vertical-align: bottom;width: 800px">
+            <textarea name="" required placeholder="请输入" style="font-size:20px;width: 100%;height:30px; overflow:hidden;" autoHeight="true"></textarea>
+        </li>
+        <li style="display: table-cell;vertical-align: bottom;padding-left: 20px">
+            <ul class="chart-input-right">
+                <button type="button" class="layui-btn">发送</button>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+
+
+
+<script src="../js/cookie.js"></script>
+<script src="../layui/layui.js" charset="utf-8"></script>
+<script>
+    layui.use(['element', 'layer', 'util','form'], function(){
+        var element = layui.element
+            ,layer = layui.layer
+            ,util = layui.util
+            ,$ = layui.$;
+        $.fn.autoHeight = function(){
+            function autoHeight(elem){
+                if (elem.scrollHeight < 100) {
+                    elem.style.height = '30px';
+                    elem.scrollTop = 0; //防抖动
+                    elem.style.height = elem.scrollHeight + 'px';
+                }
+            }
+
+            this.each(function(){
+                autoHeight(this);
+                $(this).on('keyup', function(){
+                    autoHeight(this);
+                });
+            });
+
+        }
+
+
+        $('textarea[autoHeight]').autoHeight();
+    });
+    function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] == variable){return pair[1];}
+        }
+        return(false);
+    }
+</script>
+</body>
+<style>
+
+</style>
+</html>

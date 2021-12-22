@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title>教务系统学生端</title>
@@ -7,16 +6,12 @@
 </head>
 <body>
 <div class="layui-layout layui-layout-admin">
-    <div class="layui-header">
-        <div class="layui-logo layui-hide-xs layui-bg-black"></div>
-        <!-- 头部区域（可配合layui 已有的水平导航） -->
-        <!--        <ul class="layui-nav layui-layout-left">-->
-        <!--            <li class="layui-nav-item layui-hide-xs"><a href="">nav 1</a></li>-->
-        <!--            <li class="layui-nav-item layui-hide-xs"><a href="">nav 2</a></li>-->
-        <!--        </ul>-->
+    <div class="layui-header" style="background-color: #2d3748">
+        <div class="layui-logo layui-hide-xs layui-bg-black" style="background-color: #2d3748"></div>
+
         <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item layui-hide layui-show-md-inline-block">
-                <a id="display-name" href="javascript:;">
+            <li class="layui-nav-item layui-hide" style="background-color: #2d3748">
+                <a id="display-name" class="layui-bg-black" href="javascript:;" >
                 </a>
                 <dl class="layui-nav-child">
                     <dd class="student-menu-item" data-title="资料完善" data-url="/student/personal" data-id="11"><a href="">个人信息</a></dd>
@@ -27,10 +22,10 @@
     </div>
 
     <div class="layui-side layui-bg-black">
-        <div class="layui-side-scroll">
+        <div class="layui-side-scroll" style="background-color: #27303f;">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                <li class="layui-nav-item layui-nav-itemed">
+            <ul class="layui-nav layui-nav-tree" lay-filter="test" style="background-color: #27303f;">
+                <li class="layui-nav-item layui-nav-itemed" style="background-color: #27303f;">
                     <a class="" href="javascript:;">默认频道</a>
                 </li>
             </ul>
@@ -38,123 +33,226 @@
     </div>
 
     <div class="layui-body">
-        <ul class="layui-timeline">
-            <li class="layui-timeline-item">
-                <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
-                <div class="layui-timeline-content layui-text">
-                    <h3 class="layui-timeline-title"></h3>
-                    <p></p>
-                </div>
+        <div class="chat-box">
+            <div class="chat-msg" style="color: snow">
+                <ul style="display: table;width: 100%;margin: 8px">
+                    <li style="display: table-cell;vertical-align: middle;">
+                        <ul class="chat-msg-control-left">
+                            <li>
+                                <button type="button" class="layui-btn layui-btn-xs layui-btn-primary">
+                                    <i class="layui-icon layui-icon-up" style="color: snow"></i>
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="layui-btn layui-btn-xs layui-btn-primary">
+                                    <i class="layui-icon layui-icon-down" style="color: snow"></i>
+                                </button>
+                            </li>
+                        </ul>
+                    </li>
+                    <li style="display: table-cell;padding-left:10px;width: 100%;">
+                        <ul class="chat-msg-content">
+                            <li style="margin: 3px 0">
+                                <P class="chat-msg-name" style="font-size: 17px; font-weight: bold;color: snow;">
+                                    姓名
+                                    <i class="layui-icon layui-icon-friends" style="font-size: 17px; color: snow;"></i>
+                                </P>
+                            </li>
+                            <li style="margin: 3px 0">
+                                <P class="chat-msg-text" style="font-size: 17px; color: snow">内容123456789</P>
+                            </li>
+                        </ul>
+                    </li>
+                    <li style="display: table-cell;vertical-align: bottom;padding-left: 10px;">
+                        <p class="chat-msg-text-time" style="font-size: 10px;color: snow">20:31</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="chat-input" style="background-color: #233753;padding-bottom: 2px;padding-top: 4px;position: fixed;bottom: 0px;width: 100%">
+            <ul class="chart-input-bar layui-form" style="display: table;margin: 0 auto">
+                <li style="display: table-cell;vertical-align: bottom;padding-bottom: 4px;padding-right: 20px">
+                    <ul class="chart-input-left" style="display:table;">
+                        <li style="display: table-cell;padding-top: 5px;padding-right: 10px;">
+                            <input type="text" placeholder="角色名" autocomplete="off" class="layui-input" style="font-size:20px;width: 80px;height:30px; overflow:hidden;resize: none;background-color: #1a202c;color: snow">
+                        </li>
+                        <li style="display: table-cell;padding: 2px">
+                            <input type="checkbox" lay-skin="switch" lay-text="角色|玩家" style="background-color: #23262E">
+                        </li>
+                        <li style="display: table-cell;padding: 2px">
+                            <input type="checkbox" lay-skin="switch" lay-text="骰子|骰子" style="background-color: #23262E">
+                        </li>
+                    </ul>
+                </li>
+                <li class="chart-input-area" style="display: table-cell;vertical-align: bottom;width: 800px">
+                    <textarea id="log-input" required placeholder="请输入" style="font-size:20px;width: 100%;height:30px; overflow:hidden;resize: none;background-color: #1a202c;color: snow" autoHeight="true"></textarea>
+                </li>
+                <li style="display: table-cell;vertical-align: bottom;padding-left: 20px">
+                    <ul class="chart-input-right">
+                        <button id="send" type="button" class="layui-btn">发送</button>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="chat-msg-model">
+    <div class="chat-msg" style="color: snow">
+        <ul style="display: table;width: 100%;margin: 8px">
+            <li style="display: table-cell;vertical-align: middle;">
+                <ul class="chat-msg-control-left">
+                    <li>
+                        <button type="button" class="layui-btn layui-btn-xs layui-btn-primary">
+                            <i class="layui-icon layui-icon-up" style="color: snow"></i>
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="layui-btn layui-btn-xs layui-btn-primary">
+                            <i class="layui-icon layui-icon-down" style="color: snow"></i>
+                        </button>
+                    </li>
+                </ul>
             </li>
-            <li class="layui-timeline-item">
-                <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
-                <div class="layui-timeline-content layui-text">
-                    <h3 class="layui-timeline-title"></h3>
-                    <p></p>
-                </div>
+            <li style="display: table-cell;padding-left:10px;width: 100%;">
+                <ul class="chat-msg-content">
+                    <li style="margin: 3px 0">
+                        <P class="chat-msg-name" style="font-size: 17px; font-weight: bold;color: snow;">
+                            <i class="layui-icon layui-icon-friends" style="font-size: 17px; color: snow;"></i>
+                        </P>
+                    </li>
+                    <li style="margin: 3px 0">
+                        <P class="chat-msg-text" style="font-size: 17px; color: snow"></P>
+                    </li>
+                </ul>
+            </li>
+            <li style="display: table-cell;vertical-align: bottom;padding-left: 10px;">
+                <p class="chat-msg-text-time" style="font-size: 10px;color: snow"></p>
             </li>
         </ul>
     </div>
-
-    <div class="layui-footer">
-        <div class="layui-fluid layui-form">
-            <div id="input-bar" class="layui-row">
-                <div class="layui-col-md1">
-                    <input type="checkbox" lay-skin="switch" lay-text="骰子|对话">
-                </div>
-                <div class="layui-col-md9">
-                    <input id="log-input" type="text" style="font-size: 20px;margin-top: 5px;margin-bottom: 10px;height: 40px" class="layui-input">
-                </div>
-                <div class="layui-col-md2">
-                    <button class="layui-btn" id="send" style="margin-left: 20px">
-                        发送
-                    </button>
-                </div>
-            </div>
-    </div>
 </div>
-</body>
-<script src="../js/cookie.js"></script>
-<script src="../layui/layui.js" charset="utf-8"></script>
-<script>
-    layui.use(['element', 'layer', 'util','form'], function(){
-        var element = layui.element
-            ,layer = layui.layer
-            ,util = layui.util
-            ,$ = layui.$;
+    <script src="../js/cookie.js"></script>
+    <script src="../layui/layui.js" charset="utf-8"></script>
+    <script>
+        layui.use(['element', 'layer', 'util','form'], function(){
+            var element = layui.element
+                ,layer = layui.layer
+                ,util = layui.util
+                ,$ = layui.$;
 
-        var drama;
-        var logs;
+            var drama;
+            var logs;
 
-        $(function () {
-            var dramaId = getQueryVariable("id");
-            $.ajax({
-                url:"/drama/get?id=" + dramaId,
-                method:"get",
-                dataType: "json",
-                async: false,
-                success: function (response) {
-                    var state = response.state;
-                    if (state == 0) {
-                        drama = response.data;
-                        $(".layui-logo").append(drama.name);
-                        $('title').text(drama.name);
+            /** 初始化 */
+            $(function () {
+                var dramaId = getQueryVariable("id");
+                $.ajax({
+                    url:"/drama/get?id=" + dramaId,
+                    method:"get",
+                    dataType: "json",
+                    async: false,
+                    success: function (response) {
+                        var state = response.state;
+                        if (state == 0) {
+                            drama = response.data;
+                            $(".layui-logo").append(drama.name);
+                            $('title').text(drama.name);
+                        }
+                    }
+                });
+                $.ajax({
+                    url:"/log/list?id=" + dramaId,
+                    method:"get",
+                    dataType: "json",
+                    async: true,
+                    success: function (response) {
+                        var state = response.state;
+                        if (state == 0) {
+                            logs = response.data;
+                        }
+                    }
+                });
+            });
+
+            /** 在最底部展示一条信息 */
+            function displayOne(log) {
+                $("#chat-msg-model").children(".chat-msg").attr("id", "log" + log.id);
+                $("#chat-msg-model").children(".chat-msg").attr("data-id",log.id);
+                $("#chat-msg-model").children(".chat-msg").attr("data-type",log.type);
+                $("#chat-msg-model").children(".chat-msg").attr("data-ownerId",log.ownerId);
+                $("#chat-msg-model").children(".chat-msg").attr("data-name",log.name);
+                $("#chat-msg-model").children(".chat-msg").attr("data-ownerName",log.ownerName);
+                $("#chat-msg-model").children(".chat-msg").attr("data-time",log.time);
+                $("#chat-msg-model").children(".chat-msg").attr("data-position",log.position);
+                $("#chat-msg-model").children(".chat-msg").attr("data-dramaID",log.dramaID);
+                $("#chat-msg-model").children(".chat-msg").attr("data-content",log.content);
+                $(".chat-box").append($("#chat-msg-model").html());
+                var currentLogList = $(".chat-box").children("div");
+                var currentLog = $(".chat-box:last-child");
+                console.log(log.id);
+
+
+                $("#log" + log.id).find(".chat-msg-name").html(log.ownerName);
+                $("#log" + log.id).find(".chat-msg-text").html(log.content);
+                $("#log" + log.id).find(".chat-msg-text-time").html(log.time);
+            }
+
+            /** 发送 */
+            $("#send").on("click", function () {
+                var log = {
+                    id: null,
+                    content: $("#log-input").val(),
+                    type: 0,
+                    dramaId: drama.id,
+                    ownerId: JSON.parse(localStorage.getItem("userInfo")).userId,
+                    ownerName: JSON.parse(localStorage.getItem("userInfo")).name,
+                    time: new Date().toLocaleDateString('fr-CA')
+                }
+                $("#log-input").val("");
+                $.ajax({
+                    url:"/log/create",
+                    method:"post",
+                    contentType: "application/json; charset=utf-8",
+                    data:JSON.stringify(log),
+                    dataType: "json",
+                    success: function (response) {
+                        log.id = response.data;
+                        displayOne(log);
+                    }
+                });
+            });
+
+            //设置用户名
+            $("#display-name").text(JSON.parse(localStorage.getItem("userInfo")).name);
+
+            //登出
+            $("#student-logout").on("click", function() {
+                clearCookie();
+                window.location.href = "/login";
+                return false
+            });
+
+
+            /** 输入框自适应 */
+            $.fn.autoHeight = function(){
+                function autoHeight(elem){
+                    if (elem.scrollHeight < 100) {
+                        elem.style.height = '30px';
+                        elem.scrollTop = 0; //防抖动
+                        elem.style.height = elem.scrollHeight + 'px';
                     }
                 }
-            });
-            $.ajax({
-                url:"/log/list?id=" + dramaId,
-                method:"get",
-                dataType: "json",
-                async: true,
-                success: function (response) {
-                    var state = response.state;
-                    if (state == 0) {
-                        logs = response.data;
-                        displayLogs(logs);
-                    }
-                }
-            });
-        });
 
-        function displayLogs(list) {
-            for (var i = 0; i < list.length; i++) {
-                $(".layui-timeline").append("<li class='layui-timeline-item'><i class='layui-icon layui-timeline-axis'>&#xe63f;</i><div class='layui-timeline-content layui-text'><h3 class='layui-timeline-title'>" + list[i].id + "</h3><p>" + list[i].content + "</p></div></li>");
+                this.each(function(){
+                    autoHeight(this);
+                    $(this).on('keyup', function(){
+                        autoHeight(this);
+                    });
+                });
+
             }
-        }
-
-        function displayOne(log) {
-            $(".layui-timeline").append("<li class='layui-timeline-item'><i class='layui-icon layui-timeline-axis'>&#xe63f;</i><div class='layui-timeline-content layui-text'><h3 class='layui-timeline-title'>" + log.id + "</h3><p>" + log.content + "</p></div></li>");
-        }
-
-        $("#send").on("click", function () {
-            var log = {
-                content: $("#log-input").val(),
-                type: 0,
-                dramaId: drama.id,
-                ownerId: JSON.parse(localStorage.getItem("userInfo")).userId
-            }
-            $.ajax({
-                url:"/log/create",
-                method:"post",
-                contentType: "application/json; charset=utf-8",
-                data:JSON.stringify(log),
-                dataType: "json",
-                success: function (response) {
-                    displayOne(log);
-                }
-            });
-        });
-
-        //设置用户名
-        $("#display-name").text(JSON.parse(localStorage.getItem("userInfo")).name);
-
-        //登出
-        $("#student-logout").on("click", function() {
-            clearCookie();
-            window.location.href = "/login";
-            return false
-        });
+            $('textarea[autoHeight]').autoHeight();
     });
     function getQueryVariable(variable) {
         var query = window.location.search.substring(1);
@@ -165,19 +263,33 @@
         }
         return(false);
     }
-</script>>
+</script>
+</body>
 <style>
     .layui-body {
-        background-color: #e2e2e2;
+        background-color: #1a202c;
     }
-    body {
-        background-color: #e2e2e2;
+    .layui-header{
+        background-color: #2d3748;
     }
-    .layui-tab-content {
-        background-color: #ffffff;
+    .layui-side{
+        background-color: #27303f;
     }
-    .layui-tab {
-        margin: 10px 20px;
+    .chat-box {
+        padding-right: 20px;
+        background-color: #1a202c;
+        padding-bottom: 150px;
+    }
+    .chat-msg {
+        filter: alpha(Opacity=100);
+        opacity: 1;
+    }
+    .chat-msg:hover{
+        filter: alpha(Opacity=60);
+        opacity: 0.6;
+    }
+    .chat-msg-control-left {
+        opacity: 0.1;
     }
 </style>
 </html>
