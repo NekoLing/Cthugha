@@ -24,4 +24,23 @@ public class UserInfo {
     private String name;
 
     private String token;
+
+    public UserInfo() {
+    }
+
+    public UserInfo(Integer accountId, String number, String email, String password, Integer userId, String name, String token) {
+        this.accountId = accountId;
+        this.number = number;
+        this.email = email;
+        this.password = password;
+        this.userId = userId;
+        this.name = name;
+        this.token = token;
+    }
+
+    public UserInfo(User user) {
+        this.userId = user.getId();
+        this.name = user.getName();
+        this.number = user.getNumber();
+    }
 }

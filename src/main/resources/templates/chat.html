@@ -10,11 +10,11 @@
         <div class="layui-logo layui-hide-xs layui-bg-black" style="background-color: #2d3748"></div>
 
         <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item layui-hide" style="background-color: #2d3748">
-                <a id="display-name" class="layui-bg-black" href="javascript:;" >
+            <li class="layui-nav-item layui-hide layui-show-md-inline-block">
+                <a id="display-name" href="javascript:;">
                 </a>
                 <dl class="layui-nav-child">
-                    <dd class="student-menu-item" data-title="资料完善" data-url="/student/personal" data-id="11"><a href="">个人信息</a></dd>
+                    <dd class="teacher-menu-item" data-title="资料完善" data-url="/teacher/personal" data-id="11"><a href="">个人信息</a></dd>
                     <dd id="student-logout"><a href="">退出登录</a></dd>
                 </dl>
             </li>
@@ -25,8 +25,8 @@
         <div class="layui-side-scroll" style="background-color: #27303f;">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree" lay-filter="test" style="background-color: #27303f;">
-                <li class="layui-nav-item layui-nav-itemed" style="background-color: #27303f;">
-                    <a class="" href="javascript:;">默认频道</a>
+                <li id="user-list" class="layui-nav-item layui-nav-itemed" style="background-color: #27303f;">
+                    <a class="" href="javascript:;">登录用户</a>
                 </li>
             </ul>
         </div>
@@ -34,40 +34,6 @@
 
     <div class="layui-body">
         <div class="chat-box">
-            <div class="chat-msg" style="color: snow">
-                <ul style="display: table;width: 100%;margin: 8px">
-                    <li style="display: table-cell;vertical-align: middle;">
-                        <ul class="chat-msg-control-left">
-                            <li>
-                                <button type="button" class="layui-btn layui-btn-xs layui-btn-primary">
-                                    <i class="layui-icon layui-icon-up" style="color: snow"></i>
-                                </button>
-                            </li>
-                            <li>
-                                <button type="button" class="layui-btn layui-btn-xs layui-btn-primary">
-                                    <i class="layui-icon layui-icon-down" style="color: snow"></i>
-                                </button>
-                            </li>
-                        </ul>
-                    </li>
-                    <li style="display: table-cell;padding-left:10px;width: 100%;">
-                        <ul class="chat-msg-content">
-                            <li style="margin: 3px 0">
-                                <P class="chat-msg-name" style="font-size: 17px; font-weight: bold;color: snow;">
-                                    姓名
-                                    <i class="layui-icon layui-icon-friends" style="font-size: 17px; color: snow;"></i>
-                                </P>
-                            </li>
-                            <li style="margin: 3px 0">
-                                <P class="chat-msg-text" style="font-size: 17px; color: snow">内容123456789</P>
-                            </li>
-                        </ul>
-                    </li>
-                    <li style="display: table-cell;vertical-align: bottom;padding-left: 10px;">
-                        <p class="chat-msg-text-time" style="font-size: 10px;color: snow">20:31</p>
-                    </li>
-                </ul>
-            </div>
         </div>
 
         <div class="chat-input" style="background-color: #233753;padding-bottom: 2px;padding-top: 4px;position: fixed;bottom: 0px;width: 100%">
@@ -75,13 +41,13 @@
                 <li style="display: table-cell;vertical-align: bottom;padding-bottom: 4px;padding-right: 20px">
                     <ul class="chart-input-left" style="display:table;">
                         <li style="display: table-cell;padding-top: 5px;padding-right: 10px;">
-                            <input type="text" placeholder="角色名" autocomplete="off" class="layui-input" style="font-size:20px;width: 80px;height:30px; overflow:hidden;resize: none;background-color: #1a202c;color: snow">
+                            <input id="player-name" type="text" placeholder="角色名" autocomplete="off" class="layui-input" style="font-size:20px;width: 80px;height:30px; overflow:hidden;resize: none;background-color: #1a202c;color: snow">
                         </li>
                         <li style="display: table-cell;padding: 2px">
-                            <input type="checkbox" lay-skin="switch" lay-text="角色|玩家" style="background-color: #23262E">
+                            <input id="player-switch" type="checkbox" lay-skin="switch" lay-text="角色|玩家" style="background-color: #23262E">
                         </li>
                         <li style="display: table-cell;padding: 2px">
-                            <input type="checkbox" lay-skin="switch" lay-text="骰子|骰子" style="background-color: #23262E">
+                            <input id="dice" type="checkbox" lay-skin="switch" lay-text="骰子|骰子" style="background-color: #23262E">
                         </li>
                     </ul>
                 </li>
@@ -103,12 +69,12 @@
             <li style="display: table-cell;vertical-align: middle;">
                 <ul class="chat-msg-control-left">
                     <li>
-                        <button type="button" class="layui-btn layui-btn-xs layui-btn-primary">
+                        <button type="button" class="btn-up layui-btn layui-btn-xs layui-btn-primary">
                             <i class="layui-icon layui-icon-up" style="color: snow"></i>
                         </button>
                     </li>
                     <li>
-                        <button type="button" class="layui-btn layui-btn-xs layui-btn-primary">
+                        <button type="button" class="btn-down layui-btn layui-btn-xs layui-btn-primary">
                             <i class="layui-icon layui-icon-down" style="color: snow"></i>
                         </button>
                     </li>
@@ -135,6 +101,8 @@
     <script src="../js/cookie.js"></script>
     <script src="../layui/layui.js" charset="utf-8"></script>
     <script>
+        var singelChatMsg = 1;
+
         layui.use(['element', 'layer', 'util','form'], function(){
             var element = layui.element
                 ,layer = layui.layer
@@ -142,7 +110,113 @@
                 ,$ = layui.$;
 
             var drama;
-            var logs;
+            var logList;
+            var onlineUser;
+            var jsonMsg = function (type, data) {
+                return JSON.stringify({
+                    type: type,
+                    data: data
+                });
+            };
+            var ws = new WebSocket('ws://localhost:8080/ws/chat/' + JSON.parse(localStorage.getItem("userInfo")).userId);
+
+            ws.onopen = function(evt) {
+                ws.send(jsonMsg(2, drama.id))
+
+                /** 发送 */
+                $("#send").on("click", function () {
+                    if ($("#player-switch").prop("checked")) {
+                        var log = {
+                            id: null,
+                            content: $("#log-input").val(),
+                            type: 1,
+                            dramaId: drama.id,
+                            ownerId: JSON.parse(localStorage.getItem("userInfo")).userId,
+                            name: $("#player-name").val(),
+                            time: new Date().toLocaleDateString('fr-CA'),
+                            position: $(".chat-box").children("div").length * 512
+                        }
+
+                        if ($("#dice").prop("checked")) {
+                            log.content = "1d100 = " + Math.floor((Math.random()*100)+1);
+                        }
+
+                        $("#log-input").val("");
+                        ws.send(jsonMsg(0, log));
+                    }
+                    else {
+                        var log = {
+                            id: null,
+                            content: $("#log-input").val(),
+                            type: 0,
+                            dramaId: drama.id,
+                            ownerId: JSON.parse(localStorage.getItem("userInfo")).userId,
+                            name: JSON.parse(localStorage.getItem("userInfo")).name,
+                            time: new Date().toLocaleDateString('fr-CA'),
+                            position: $(".chat-box").children("div").length * 512
+                        }
+
+                        if ($("#dice").prop("checked")) {
+                            log.content = "1d100 = " + Math.floor((Math.random()*100)+1);
+                        }
+
+                        $("#log-input").val("");
+                        ws.send(jsonMsg(0, log));
+                    }
+                });
+                /** 位置交换 */
+                $(".chat-box").on("click", ".btn-up", function (){
+                    $(this).data("id");
+                    ws.send(jsonMsg(3, $(this).data("id")));
+                });
+                $(".chat-box").on("click", ".btn-down", function (){
+                    $(this).data("id");
+                    ws.send(jsonMsg(4, $(this).data("id")));
+                });
+            };
+
+            ws.onmessage = function(evt) {
+                var receive = JSON.parse(evt.data)
+                var type = receive.type;
+                if (type == 1) {
+                    var onlineUser = receive.data;
+                    $("#user-list").empty();
+                    for (var i = 0; i < onlineUser.length; i++) {
+                        console.log(onlineUser[i].name);
+                        $("#user-list").append("<a class='' href='javascript:;'>" + onlineUser[i].name + "</a>");
+                    }
+                }
+                if (type == 0) {
+                    var log = receive.data;
+                    displayOne(log);
+                }
+                if (type == 2) {
+                    logList = receive.data;
+                    for (var i = 0; i < logList.length; i++) {
+                        displayOne(logList[i]);
+                    }
+                }
+                if (type == 3) {
+                    logId = receive.data;
+                    var current = $("#log" + logId).data("position");
+                    var target = current - 512;
+                    $("#log" + logId).insertBefore("[data-position=" + target + "]");
+                    $("[data-position=" + target + "]").attr("data-position", current);
+                    $("#log" + logId).attr("data-position", target);
+                }
+                if (type == 4) {
+                    logId = receive.data;
+                    var current = $("#log" + logId).data("position");
+                    var target = current + 512;
+                    $("#log" + logId).insertAfter("[data-position=" + target + "]");
+                    $("[data-position=" + target + "]").attr("data-position", current);
+                    $("#log" + logId).attr("data-position", target);
+                }
+            };
+
+            ws.onclose = function(evt) {
+                console.log('Connection closed.');
+            };
 
             /** 初始化 */
             $(function () {
@@ -161,28 +235,21 @@
                         }
                     }
                 });
-                $.ajax({
-                    url:"/log/list?id=" + dramaId,
-                    method:"get",
-                    dataType: "json",
-                    async: true,
-                    success: function (response) {
-                        var state = response.state;
-                        if (state == 0) {
-                            logs = response.data;
-                        }
-                    }
-                });
             });
 
             /** 在最底部展示一条信息 */
             function displayOne(log) {
+                if (log.type == 1)
+                    $("#chat-msg-model").children(".chat-msg").css("background-color", "#2d3748");
                 $("#chat-msg-model").children(".chat-msg").attr("id", "log" + log.id);
+                $("#chat-msg-model").find(".btn-up").attr("data-id", log.id);
+                $("#chat-msg-model").find(".btn-down").attr("data-id", log.id);
+
                 $("#chat-msg-model").children(".chat-msg").attr("data-id",log.id);
                 $("#chat-msg-model").children(".chat-msg").attr("data-type",log.type);
                 $("#chat-msg-model").children(".chat-msg").attr("data-ownerId",log.ownerId);
                 $("#chat-msg-model").children(".chat-msg").attr("data-name",log.name);
-                $("#chat-msg-model").children(".chat-msg").attr("data-ownerName",log.ownerName);
+                $("#chat-msg-model").children(".chat-msg").attr("data-name",log.name);
                 $("#chat-msg-model").children(".chat-msg").attr("data-time",log.time);
                 $("#chat-msg-model").children(".chat-msg").attr("data-position",log.position);
                 $("#chat-msg-model").children(".chat-msg").attr("data-dramaID",log.dramaID);
@@ -193,35 +260,10 @@
                 console.log(log.id);
 
 
-                $("#log" + log.id).find(".chat-msg-name").html(log.ownerName);
+                $("#log" + log.id).find(".chat-msg-name").html(log.name);
                 $("#log" + log.id).find(".chat-msg-text").html(log.content);
                 $("#log" + log.id).find(".chat-msg-text-time").html(log.time);
             }
-
-            /** 发送 */
-            $("#send").on("click", function () {
-                var log = {
-                    id: null,
-                    content: $("#log-input").val(),
-                    type: 0,
-                    dramaId: drama.id,
-                    ownerId: JSON.parse(localStorage.getItem("userInfo")).userId,
-                    ownerName: JSON.parse(localStorage.getItem("userInfo")).name,
-                    time: new Date().toLocaleDateString('fr-CA')
-                }
-                $("#log-input").val("");
-                $.ajax({
-                    url:"/log/create",
-                    method:"post",
-                    contentType: "application/json; charset=utf-8",
-                    data:JSON.stringify(log),
-                    dataType: "json",
-                    success: function (response) {
-                        log.id = response.data;
-                        displayOne(log);
-                    }
-                });
-            });
 
             //设置用户名
             $("#display-name").text(JSON.parse(localStorage.getItem("userInfo")).name);
@@ -253,6 +295,7 @@
 
             }
             $('textarea[autoHeight]').autoHeight();
+
     });
     function getQueryVariable(variable) {
         var query = window.location.search.substring(1);

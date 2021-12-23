@@ -1,5 +1,8 @@
 package com.cthugha.util;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 /**
  * @Classname JsonResponse
  * @Description 用于生成Json格式响应的工具类
@@ -11,6 +14,7 @@ public class JsonResponse<T> {
     private T data;
     private Integer state;
     private String message;
+    private Integer type;
 
     /**
      * 无返回数据，成功，状态码0
@@ -51,6 +55,24 @@ public class JsonResponse<T> {
         this.message = message;
     }
 
+    public JsonResponse(T data, Integer type) {
+        this.data = data;
+        this.type = type;
+    }
+
+    public JsonResponse(T data, String message, Integer type) {
+        this.data = data;
+        this.message = message;
+        this.type = type;
+    }
+
+    public JsonResponse(T data, Integer state, String message, Integer type) {
+        this.data = data;
+        this.state = state;
+        this.message = message;
+        this.type = type;
+    }
+
     public T getData() {
         return data;
     }
@@ -73,5 +95,20 @@ public class JsonResponse<T> {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public String toJsonString() {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.setPrettyPrinting();
+        Gson gson = gsonBuilder.create();
+        return gson.toJson(this);
     }
 }

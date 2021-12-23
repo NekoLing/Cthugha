@@ -13,5 +13,11 @@ import java.util.List;
 public interface ILogService {
     int add(Log log);
 
+    Log updateByID(Log log);
+
     List<Log> listByDramaId(Integer id);
+
+    void positionUp(Integer id);
+
+    void positionDown(Integer id);
 }
