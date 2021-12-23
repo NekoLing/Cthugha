@@ -61,8 +61,8 @@
 
 </body>
 <script>
-    layui.use(['jquery', 'form', 'layer'], function(){
-        var form = layui.form, layer = layui.layer, $ = layui.$;
+    layui.use(['jquery', 'form', 'layer','dropdown'], function(){
+        var form = layui.form, layer = layui.layer, $ = layui.$,dropdown = layui.dropdown;
 
         var drama;
 
@@ -91,6 +91,22 @@
 
         $("#start").on("click", function (){
             window.location.href = "/chat?id=" + drama.id;
+        });
+
+        $("#me").text( JSON.parse(localStorage.getItem("userInfo")).name);
+
+        dropdown.render({
+            elem: '#me' //可绑定在任意元素中，此处以上述按钮为例
+            ,data: [{
+                title: '注销'
+                ,id: 100
+                ,href: '/login'
+            }]
+            ,id: 'demo1'
+            //菜单被点击的事件
+            ,click: function(obj){
+                clearCookie();
+            }
         });
 
     });

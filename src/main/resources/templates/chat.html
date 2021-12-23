@@ -4,7 +4,7 @@
     <title>教务系统学生端</title>
     <link rel="stylesheet" href="../layui/css/layui.css" media="all">
 </head>
-<body>
+<body style="overflow-x: hidden;">
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header" style="background-color: #2d3748">
         <div class="layui-logo layui-hide-xs layui-bg-black" style="background-color: #2d3748"></div>
@@ -37,10 +37,10 @@
         </div>
 
         <div class="chat-input" style="background-color: #233753;padding-bottom: 2px;padding-top: 4px;position: fixed;bottom: 0px;width: 100%">
-            <ul class="chart-input-bar layui-form" style="display: table;margin: 0 auto">
+            <ul class="chart-input-bar layui-form" style="display: table;margin-left: 30px">
                 <li style="display: table-cell;vertical-align: bottom;padding-bottom: 4px;padding-right: 20px">
                     <ul class="chart-input-left" style="display:table;">
-                        <li style="display: table-cell;padding-top: 5px;padding-right: 10px;">
+                        <li style="display: table-cell;padding-top: 5px;padding-right: 60px;">
                             <input id="player-name" type="text" placeholder="角色名" autocomplete="off" class="layui-input" style="font-size:20px;width: 80px;height:30px; overflow:hidden;resize: none;background-color: #1a202c;color: snow">
                         </li>
                         <li style="display: table-cell;padding: 2px">
@@ -118,6 +118,8 @@
                     data: data
                 });
             };
+
+            /** websocket */
             var ws = new WebSocket('ws://localhost:8080/ws/chat/' + JSON.parse(localStorage.getItem("userInfo")).userId);
 
             ws.onopen = function(evt) {
